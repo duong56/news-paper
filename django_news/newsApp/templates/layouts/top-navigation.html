@@ -1,0 +1,71 @@
+{% load static %}
+<header class="header-area">
+    <!-- Navbar Area -->
+    <div class="newsbox-main-menu" style="height: 80px;">
+        <div class="classy-nav-container breakpoint-off" >
+            <div class="container-fluid">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="newsboxNav" style="height: 80px;">
+
+                    <!-- Nav brand -->
+                    <a href="index.html" class="nav-brand"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li style="margin-right: 20px; margin-left: 20px">
+                                    <form class="form-inline" method=POST action="{% url 'search-new' %}">
+                                        {% csrf_token %}
+                                        <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search" name="searched">
+                                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                                    </form>
+                                </li>
+                                <li><a href="{%url 'home-page'%}">Home</a></li>
+                                <li><a href="{%url 'about-page'%}">About</a></li>
+                                <li><a href="{%url 'news'%}">News</a></li>
+                                {% for category in categories %}
+                                <li><a href="{% url 'category-post' category.id %}">{{category}}</a></li>
+                                {% endfor %}
+                                <li>
+                                    <select class="form-select border p-1" aria-label="Language">
+                                        <option value="en" selected>En</option>
+                                        <option value="vi">Vi</option>
+                                    </select>
+                                </li>
+                                {% if not user.id %}
+                                <li><a href="{% url 'login-page' %}">Login</a></li>
+                                {% else %}
+                                <li>
+                                    <a href="#">{{user.username}}</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{% url 'profile-page' %}">Profile</a></li>
+                                        <li><a href="{% url 'new-post' %}">New Post</a></li>
+                                        <li><a href="{% url 'all-posts' %}">All Posts</a></li>
+                                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                                    </ul>
+                                </li>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                        <!-- Nav End -->
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
